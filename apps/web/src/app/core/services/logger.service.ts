@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpBackend } from '@angular/common/http';
 import { API_BASEURL, APIS } from '../../constant/app.constant';
 
 @Injectable({
@@ -7,8 +7,11 @@ import { API_BASEURL, APIS } from '../../constant/app.constant';
 })
 export class LoggerService {
   private apiUrl = `${API_BASEURL}${APIS.LOGS}`;
+  private http: HttpClient;
 
-  constructor(private http: HttpClient) {}
+  constructor(handler: HttpBackend) {
+    this.http = new HttpClient(handler);
+  }
 
   log(level: string, message: string) {
     const logEntry = {
@@ -18,7 +21,7 @@ export class LoggerService {
     };
     this.http.post(this.apiUrl, logEntry).subscribe({
       next: () => {},
-      error: (err) => console.error('Failed to ship log to server:', err),
+      error: () => {},
     });
   }
 

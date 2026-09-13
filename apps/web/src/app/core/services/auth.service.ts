@@ -23,11 +23,6 @@ export class AuthService {
   ) {
     this.currentUserSubject = new BehaviorSubject<UserDTO | null>(this.getStoredUser());
     this.currentUser$ = this.currentUserSubject.asObservable();
-
-    // Automatically sync latest user profile & role from server if token exists
-    if (this.getToken()) {
-      this.refreshCurrentUser().subscribe();
-    }
   }
 
   public get currentUserValue(): UserDTO | null {
