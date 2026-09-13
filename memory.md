@@ -64,6 +64,15 @@ This document serves as the persistent memory for the MallCity project. It recor
   * Upgraded [README.md](file:///c:/MyData/Proj/mallCity/README.md) to a comprehensive project guide including monorepo layout, environment configuration, credentials, and developer Quick Start commands.
   * Synchronized [doc.md](file:///c:/MyData/Proj/mallCity/doc.md) with an Operational Runbook section linking to the canonical root `README.md`.
 
+### [Phase 5] Remote GitHub Repository Synchronization
+* **Date**: September 14, 2026
+* **Actor**: Antigravity Assistant & Piyush Roy
+* **Activity**:
+  * Verified git credentials and confirmed safety of `.gitignore` (safeguarding `.env`, `logs/`, `dist/`, and `node_modules/`).
+  * Staged 153 repository files across `apps/api`, `apps/web`, `packages/shared`, and root governance specifications.
+  * Created commit `e80d66d` ("feat: rebuild MallCity into Angular NgRx monorepo with strict TypeScript API, RBAC, and governance docs").
+  * Pushed cleanly to remote repository `origin master` (`https://github.com/piyushroy007/mallCity.git`).
+
 ---
 
 ## Incremental Feature Roadmap & Progress
@@ -79,6 +88,7 @@ This document serves as the persistent memory for the MallCity project. It recor
 - [x] Role-based access control: Admin vs User permissions enforced across frontend & backend
 - [x] Verification and end-to-end build testing (`npm run build`)
 - [x] Quick Start commands synchronized in `README.md` and `doc.md`
+- [x] Synchronized and pushed to GitHub repository (`origin/master`)
 
 ---
 
