@@ -63,6 +63,15 @@ export class MallsComponent implements OnInit, OnDestroy {
         return;
       }
 
+      const maxBytes = 15 * 1024 * 1024; // 15MB
+      if (file.size > maxBytes) {
+        this.toastr.error('Image size exceeds 15MB. Please select a smaller photo.', 'File Too Large');
+        event.target.value = '';
+        this.selectedFile = null;
+        this.previewUrl = null;
+        return;
+      }
+
       this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = () => {
