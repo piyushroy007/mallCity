@@ -1,6 +1,23 @@
 <div class="home-hero">
   <div class="hero-overlay"></div>
   <div class="hero-content text-center">
+    <!-- Admin Quick Access Card -->
+    <div *ngIf="isAdmin" class="admin-quick-card glass-panel p-3 mb-4 mx-auto text-start" style="max-width: 520px; border: 1px solid rgba(48, 221, 149, 0.4);">
+      <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+        <div>
+          <div class="fw-bold d-flex align-items-center gap-1" style="color: #30dd95;">
+            <mat-icon style="font-size: 20px; width: 20px; height: 20px;">admin_panel_settings</mat-icon>
+            <span>Administrator Session Active</span>
+          </div>
+          <small class="text-muted">Signed in as <strong>{{ adminName }}</strong></small>
+        </div>
+        <button mat-flat-button color="primary" routerLink="/admin">
+          <mat-icon class="me-1">dashboard</mat-icon>
+          <span>Open Admin Panel</span>
+        </button>
+      </div>
+    </div>
+
     <h1 class="hero-title">Unlock Shopping Malls Across The Globe</h1>
     <p class="hero-subtitle">Select your city to explore premier malls, exclusive stores, and lifestyle destinations.</p>
 

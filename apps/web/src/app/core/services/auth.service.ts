@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { API_BASEURL, APIS } from '../../constant/app.constant';
 import { LoggerService } from './logger.service';
@@ -23,6 +23,11 @@ export class AuthService {
   ) {
     this.currentUserSubject = new BehaviorSubject<UserDTO | null>(this.getStoredUser());
     this.currentUser$ = this.currentUserSubject.asObservable();
+
+    // Automatically sync latest user profile & role from server if token exists
+    if (this.getToken()) {
+      this.refreshCurrentUser().subscribe();
+    }
   }
 
   public get currentUserValue(): UserDTO | null {
@@ -79,7 +84,28 @@ export class AuthService {
   isAdmin(): boolean {
     if (!this.isAuthenticated()) return false;
     const user = this.currentUserValue;
-    return user?.role === USER_ROLES.ADMIN;
+    const role = user?.role?.toLowerCase();
+    return role === 'admin' || (typeof USER_ROLES !== 'undefined' && role === USER_ROLES?.ADMIN);
+  }
+
+  refreshCurrentUser(): Observable<UserDTO | null> {
+    const token = this.getToken();
+    if (!token) {
+      return of(null);
+    }
+
+    return this.http.get<UserDTO>(`${API_BASEURL}${APIS.AUTH}/me`).pipe(
+      map((freshUser) => {
+        this.setUser(freshUser);
+        this.currentUserSubject.next(freshUser);
+        this.logs.info(`AuthService: Session refreshed from server for ${freshUser.email} (Role: ${freshUser.role})`);
+        return freshUser;
+      }),
+      catchError((err) => {
+        this.logs.warn(`AuthService: Failed to refresh user profile`, err);
+        return of(null);
+      })
+    );
   }
 
   setToken(token: string): void {

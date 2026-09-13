@@ -72,7 +72,13 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           this.toastr.success(`Account created! Welcome, ${res.user.name}`, 'Success');
           this.loading = false;
-          this.router.navigateByUrl(this.returnUrl);
+          const targetUrl =
+            this.returnUrl && this.returnUrl !== '/'
+              ? this.returnUrl
+              : res.user.role?.toLowerCase() === 'admin'
+              ? '/admin'
+              : '/';
+          this.router.navigateByUrl(targetUrl);
         },
         error: (err) => {
           this.toastr.error(err.error?.message || 'Signup failed', 'Error');
@@ -84,7 +90,13 @@ export class LoginComponent implements OnInit {
         next: (res) => {
           this.toastr.success(`Welcome back, ${res.user.name}!`, 'Logged In');
           this.loading = false;
-          this.router.navigateByUrl(this.returnUrl);
+          const targetUrl =
+            this.returnUrl && this.returnUrl !== '/'
+              ? this.returnUrl
+              : res.user.role?.toLowerCase() === 'admin'
+              ? '/admin'
+              : '/';
+          this.router.navigateByUrl(targetUrl);
         },
         error: (err) => {
           this.toastr.error(err.error?.message || 'Login failed. Check email or password.', 'Error');

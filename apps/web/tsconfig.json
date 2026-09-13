@@ -21,7 +21,7 @@
     "lib": ["ES2022", "dom"],
     "baseUrl": ".",
     "paths": {
-      "@mallcity/shared": ["../../packages/shared/dist/index.d.ts"],
+      "@mallcity/shared": ["../../packages/shared/src/index.ts"],
       "rxjs": ["../../node_modules/rxjs"],
       "rxjs/*": ["../../node_modules/rxjs/*"]
     }

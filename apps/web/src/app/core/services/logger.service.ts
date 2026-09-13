@@ -22,18 +22,21 @@ export class LoggerService {
     });
   }
 
-  info(message: string) {
-    console.log(`[INFO] ${message}`);
-    this.log('info', message);
+  info(message: string, meta?: unknown) {
+    const formatted = meta ? `${message} ${typeof meta === 'object' ? JSON.stringify(meta) : meta}` : message;
+    console.log(`[INFO] ${message}`, meta || '');
+    this.log('info', formatted);
   }
 
-  warn(message: string) {
-    console.warn(`[WARN] ${message}`);
-    this.log('warn', message);
+  warn(message: string, meta?: unknown) {
+    const formatted = meta ? `${message} ${typeof meta === 'object' ? JSON.stringify(meta) : meta}` : message;
+    console.warn(`[WARN] ${message}`, meta || '');
+    this.log('warn', formatted);
   }
 
-  error(message: string) {
-    console.error(`[ERROR] ${message}`);
-    this.log('error', message);
+  error(message: string, meta?: unknown) {
+    const formatted = meta ? `${message} ${typeof meta === 'object' ? JSON.stringify(meta) : meta}` : message;
+    console.error(`[ERROR] ${message}`, meta || '');
+    this.log('error', formatted);
   }
 }

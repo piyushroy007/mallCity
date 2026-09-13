@@ -20,7 +20,7 @@ export class RoleGuard implements CanActivate {
       return this.router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } });
     }
 
-    if (user.role !== USER_ROLES.ADMIN) {
+    if (!this.authService.isAdmin()) {
       this.toastr.error('Access Denied: Only administrators can access this section.', 'Forbidden (403)');
       return this.router.createUrlTree(['/']);
     }

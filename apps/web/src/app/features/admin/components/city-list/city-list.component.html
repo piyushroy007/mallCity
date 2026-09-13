@@ -3,7 +3,7 @@
     <h4>Existing Cities ({{ cityListInput?.length || 0 }})</h4>
   </div>
 
-  <table mat-table [dataSource]="cityListInput" class="city-table w-100">
+  <table mat-table [dataSource]="dataSource" class="city-table w-100">
     <!-- City Name -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>City Name</th>
