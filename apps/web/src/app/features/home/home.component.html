@@ -1,0 +1,19 @@
+<div class="home-hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content text-center">
+    <h1 class="hero-title">Unlock Shopping Malls Across The Globe</h1>
+    <p class="hero-subtitle">Select your city to explore premier malls, exclusive stores, and lifestyle destinations.</p>
+
+    <div class="search-box glass-panel">
+      <mat-form-field appearance="outline" class="w-100 city-select-field">
+        <mat-label>Select your city</mat-label>
+        <mat-select [(ngModel)]="selectedCity" (selectionChange)="onCitySelected($event.value)">
+          <mat-option *ngFor="let city of (cities$ | async)" [value]="city.name">
+            {{ city.name }} ({{ city.state }})
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix class="me-2 text-muted">location_city</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+</div>

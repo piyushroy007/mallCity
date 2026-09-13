@@ -1,0 +1,82 @@
+/* MallCity Global Styles - Strictly Adheres to style.md */
+@import 'bootstrap/scss/bootstrap';
+@import 'ngx-toastr/toastr';
+
+:root {
+  --color-primary: #30dd95;
+  --color-secondary: #4f46e5;
+  --bg-canvas: #0f172a;
+  --bg-surface: rgba(30, 41, 59, 0.75);
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --radius-standard: 8px;
+  --radius-card: 12px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphic Card Mixin / Class */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: var(--radius-card);
+}
+
+/* Angular Material Overrides to match Style System */
+.mat-mdc-button.mat-primary,
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-container-color: var(--color-primary) !important;
+  --mdc-filled-button-label-text-color: #0f172a !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-standard) !important;
+}
+
+.mat-mdc-button.mat-accent,
+.mat-mdc-raised-button.mat-accent {
+  --mdc-filled-button-container-color: var(--color-secondary) !important;
+  --mdc-filled-button-label-text-color: #ffffff !important;
+  border-radius: var(--radius-standard) !important;
+}
+
+.mat-mdc-card {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-glass) !important;
+  border-radius: var(--radius-card) !important;
+  backdrop-filter: blur(10px);
+}
+
+.mat-mdc-tab-group {
+  --mdc-tab-indicator-active-indicator-color: var(--color-primary) !important;
+  --mat-tab-header-active-label-text-color: var(--color-primary) !important;
+  --mat-tab-header-inactive-label-text-color: var(--text-muted) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}

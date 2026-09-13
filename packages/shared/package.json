@@ -1,0 +1,13 @@
+{
+  "name": "@mallcity/shared",
+  "version": "1.0.0",
+  "description": "Shared TypeScript DTOs, interfaces, and contracts for MallCity",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": ["mallcity", "shared", "dto"],
+  "author": "Piyush Roy",
+  "license": "MIT"
+}

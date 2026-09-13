@@ -1,0 +1,66 @@
+.mall-list-page {
+  padding-bottom: 60px;
+
+  .mall-hero {
+    margin: 24px auto;
+    max-width: 1400px;
+    padding: 36px 32px;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+
+    .hero-inner {
+      h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 8px;
+
+        .highlight-city {
+          color: #30dd95;
+        }
+      }
+
+      p {
+        color: #94a3b8;
+        font-size: 1.05rem;
+        margin: 0;
+      }
+    }
+  }
+
+  .content-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .mall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .empty-state {
+    padding: 60px 20px;
+    max-width: 500px;
+    margin: 40px auto;
+
+    .empty-icon {
+      font-size: 64px;
+      width: 64px;
+      height: 64px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+  }
+
+  .view-details-btn {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  .action-icons {
+    display: flex;
+    align-items: center;
+  }
+}

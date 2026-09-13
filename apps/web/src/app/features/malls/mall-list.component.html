@@ -1,0 +1,56 @@
+<div class="mall-list-page">
+  <!-- Hero Section -->
+  <div class="mall-hero glass-panel">
+    <div class="hero-inner">
+      <h1>Explore Malls in <span class="highlight-city">{{ selectedCity || 'All Locations' }}</span></h1>
+      <p>Discover premier shopping destinations, entertainment, and top dining experiences.</p>
+    </div>
+  </div>
+
+  <!-- Content Grid -->
+  <div class="container-fluid content-container">
+    <div *ngIf="(loading$ | async)" class="text-center py-5">
+      <mat-spinner diameter="48" class="mx-auto"></mat-spinner>
+      <p class="mt-3 text-muted">Loading premier malls...</p>
+    </div>
+
+    <div *ngIf="!(loading$ | async) && (malls$ | async)?.length === 0" class="empty-state glass-panel text-center py-5">
+      <mat-icon class="empty-icon">storefront</mat-icon>
+      <h3>No malls found for {{ selectedCity }}</h3>
+      <p class="text-muted">Check back later or select another city.</p>
+      <button mat-flat-button color="primary" routerLink="/">Choose Another City</button>
+    </div>
+
+    <div class="mall-grid" *ngIf="!(loading$ | async)">
+      <app-card
+        *ngFor="let mall of (malls$ | async)"
+        [title]="mall.name"
+        [subtitle]="mall.address"
+        [imageUrl]="mall.mallImg"
+        [content]="mall.description"
+        [badge]="mall.noOffloor + ' Floors'"
+      >
+        <div actions class="w-100 d-flex align-items-center justify-content-between">
+          <button
+            mat-flat-button
+            color="primary"
+            class="view-details-btn"
+            (click)="navigateToShops(mall)"
+          >
+            <span>Explore Stores</span>
+            <mat-icon class="ms-1">arrow_forward</mat-icon>
+          </button>
+
+          <div class="action-icons">
+            <button mat-icon-button color="warn" (click)="toggleLike(mall)" title="Like">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+            <button mat-icon-button (click)="shareMall(mall)" title="Share">
+              <mat-icon>share</mat-icon>
+            </button>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</div>

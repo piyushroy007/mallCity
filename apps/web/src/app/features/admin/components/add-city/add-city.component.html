@@ -1,0 +1,52 @@
+<div class="row g-4">
+  <!-- Left Column: Existing Cities -->
+  <div class="col-lg-7">
+    <app-city-list
+      [cityListInput]="(cities$ | async) || []"
+      (editCity)="onEditCity($event)"
+    ></app-city-list>
+  </div>
+
+  <!-- Right Column: Add / Edit City Form -->
+  <div class="col-lg-5">
+    <div class="city-form-card glass-panel">
+      <div class="form-header d-flex align-items-center justify-content-between mb-4">
+        <h3 class="m-0">{{ isEditMode ? 'Edit City' : 'Add New City' }}</h3>
+        <button *ngIf="isEditMode" mat-stroked-button color="warn" (click)="resetForm()">
+          Cancel Edit
+        </button>
+      </div>
+
+      <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+        <!-- State Selection -->
+        <mat-form-field appearance="outline" class="w-100 mb-2">
+          <mat-label>Select State</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="cityForm.get('state')?.hasError('required')">State is required</mat-error>
+        </mat-form-field>
+
+        <!-- City Name -->
+        <mat-form-field appearance="outline" class="w-100 mb-2">
+          <mat-label>City Name</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. Pune" />
+          <mat-error *ngIf="cityForm.get('name')?.hasError('required')">City name is required</mat-error>
+        </mat-form-field>
+
+        <!-- City Code -->
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>City Code (Unique numeric identifier)</mat-label>
+          <input matInput type="number" formControlName="cityCode" placeholder="e.g. 101" />
+          <mat-error *ngIf="cityForm.get('cityCode')?.hasError('required')">City code is required</mat-error>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button mat-flat-button color="primary" type="submit" class="w-100 py-2 submit-btn" [disabled]="cityForm.invalid">
+          <mat-icon class="me-1">{{ isEditMode ? 'save' : 'add_location' }}</mat-icon>
+          <span>{{ isEditMode ? 'Update City' : 'Register City' }}</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

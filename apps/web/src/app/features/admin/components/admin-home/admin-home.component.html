@@ -1,0 +1,51 @@
+<div class="admin-dashboard container-fluid py-4">
+  <div class="dashboard-header glass-panel p-4 mb-4">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div>
+        <h2 class="m-0 d-flex align-items-center gap-2">
+          <mat-icon class="admin-shield">verified_user</mat-icon>
+          <span>Admin Management Console</span>
+        </h2>
+        <p class="text-muted m-0 mt-1">Manage global cities, registered shopping malls, and store directories.</p>
+      </div>
+
+      <div class="badge-tag">
+        <mat-icon class="me-1">lock</mat-icon>
+        <span>Protected Area (Role: ADMIN)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabbed Interface -->
+  <mat-tab-group animationDuration="150ms" class="admin-tabs glass-panel">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="me-2">location_city</mat-icon>
+        <span>Cities</span>
+      </ng-template>
+      <div class="tab-content-wrapper p-4">
+        <app-add-city></app-add-city>
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="me-2">storefront</mat-icon>
+        <span>Malls</span>
+      </ng-template>
+      <div class="tab-content-wrapper p-4">
+        <app-malls></app-malls>
+      </div>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="me-2">store</mat-icon>
+        <span>Stores</span>
+      </ng-template>
+      <div class="tab-content-wrapper p-4">
+        <app-stores></app-stores>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

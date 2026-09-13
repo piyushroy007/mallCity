@@ -1,0 +1,60 @@
+<mat-toolbar class="main-header glass-panel">
+  <div class="header-container">
+    <!-- Brand Logo / Title -->
+    <div class="brand-section" routerLink="/" style="cursor: pointer;">
+      <mat-icon class="brand-icon">storefront</mat-icon>
+      <span class="brand-title" appHighlightsColor>{{ headerTitle }}</span>
+    </div>
+
+    <!-- Navigation Actions -->
+    <div class="actions-section">
+      <!-- User Greeting -->
+      <div *ngIf="user" class="user-greeting d-none d-md-flex align-items-center">
+        <span class="greeting-text">Hello, <strong>{{ user.name }}</strong></span>
+        <span class="role-badge" [class.admin-badge]="isAdmin">{{ user.role | uppercase }}</span>
+      </div>
+
+      <!-- Home Button -->
+      <button mat-icon-button routerLink="/" title="Home" class="nav-btn">
+        <mat-icon>home</mat-icon>
+      </button>
+
+      <!-- Admin Console Button (Only visible for Admins!) -->
+      <button
+        *ngIf="isAdmin"
+        mat-flat-button
+        color="primary"
+        routerLink="/admin"
+        class="admin-nav-btn mx-2"
+        title="Admin Management Console"
+      >
+        <mat-icon class="me-1">admin_panel_settings</mat-icon>
+        <span>Admin Panel</span>
+      </button>
+
+      <!-- Login Button (if guest) -->
+      <button
+        *ngIf="!user"
+        mat-stroked-button
+        color="primary"
+        routerLink="/login"
+        class="login-nav-btn mx-1"
+      >
+        <mat-icon class="me-1">login</mat-icon>
+        <span>Login</span>
+      </button>
+
+      <!-- Logout Button (if authenticated) -->
+      <button
+        *ngIf="user"
+        mat-icon-button
+        color="warn"
+        (click)="logout()"
+        title="Log Out"
+        class="logout-btn mx-1"
+      >
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

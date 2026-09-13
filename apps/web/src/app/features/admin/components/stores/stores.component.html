@@ -1,0 +1,110 @@
+<div class="stores-admin-container glass-panel p-4">
+  <div class="mb-4">
+    <h3 class="m-0">Register New Store / Shop</h3>
+    <p class="text-muted">Associate store with a mall, select floor and category, and upload a store image.</p>
+  </div>
+
+  <form [formGroup]="shopForm" (ngSubmit)="onSubmit()" class="row g-4">
+    <!-- Image Upload & Preview -->
+    <div class="col-md-4">
+      <div class="image-upload-box text-center">
+        <label for="shopImgUpload" class="upload-label">
+          <mat-icon class="upload-icon">add_photo_alternate</mat-icon>
+          <span>Select Store Image</span>
+        </label>
+        <input
+          type="file"
+          id="shopImgUpload"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+          class="d-none"
+        />
+
+        <div class="preview-container mt-3" *ngIf="previewUrl">
+          <img [src]="previewUrl" alt="Store Image Preview" class="img-preview" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Inputs -->
+    <div class="col-md-8">
+      <div class="row g-3">
+        <!-- Select City -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city">
+              <mat-option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="shopForm.get('city')?.hasError('required')">City is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Select Mall (Filtered by City) -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mall Destination</mat-label>
+            <mat-select formControlName="mallName">
+              <mat-option *ngFor="let mall of filteredMalls" [value]="mall.name">{{ mall.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="shopForm.get('mallName')?.hasError('required')">Mall is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Shop Name -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Store Name</mat-label>
+            <input matInput formControlName="name" placeholder="e.g. Zara / Apple Store" />
+            <mat-error *ngIf="shopForm.get('name')?.hasError('required')">Store name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Floor Number -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Floor Level</mat-label>
+            <input matInput formControlName="floorNo" placeholder="e.g. 2nd Floor" />
+            <mat-error *ngIf="shopForm.get('floorNo')?.hasError('required')">Floor is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Shop Type / Category -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Category / Type</mat-label>
+            <mat-select formControlName="shopType">
+              <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="shopForm.get('shopType')?.hasError('required')">Category is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Contact Phone -->
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contact Phone</mat-label>
+            <input matInput formControlName="contactNumber" placeholder="e.g. +91 9800410022" />
+          </mat-form-field>
+        </div>
+
+        <!-- Description -->
+        <div class="col-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Store Description</mat-label>
+            <textarea matInput rows="3" formControlName="description" placeholder="Store specialties, brands, or highlights..."></textarea>
+            <mat-error *ngIf="shopForm.get('description')?.hasError('required')">Description is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12">
+          <button mat-flat-button color="primary" type="submit" class="py-2 px-4 submit-btn" [disabled]="shopForm.invalid">
+            <mat-icon class="me-1">store</mat-icon>
+            <span>Register Store</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

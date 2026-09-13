@@ -1,0 +1,69 @@
+<div class="auth-page">
+  <div class="auth-card glass-panel">
+    <div class="auth-header text-center">
+      <h2>{{ isSignup ? 'Create Your Account' : 'Welcome Back' }}</h2>
+      <p class="text-muted">{{ isSignup ? 'Sign up to manage and explore mall city' : 'Log in to your MallCity account' }}</p>
+    </div>
+
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <!-- Name (Signup only) -->
+      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="isSignup">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="name" placeholder="John Doe" />
+        <mat-icon matPrefix class="text-muted me-2">badge</mat-icon>
+        <mat-error *ngIf="authForm.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+
+      <!-- Username (Signup only) -->
+      <mat-form-field appearance="outline" class="w-100 mb-2" *ngIf="isSignup">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" placeholder="johndoe" />
+        <mat-icon matPrefix class="text-muted me-2">person</mat-icon>
+        <mat-error *ngIf="authForm.get('username')?.hasError('required')">Username is required</mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="w-100 mb-2">
+        <mat-label>Email Address</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="john@example.com" />
+        <mat-icon matPrefix class="text-muted me-2">email</mat-icon>
+        <mat-error *ngIf="authForm.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="authForm.get('email')?.hasError('email')">Invalid email address</mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="w-100 mb-2">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+        <mat-icon matPrefix class="text-muted me-2">lock</mat-icon>
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="authForm.get('password')?.hasError('required')">Password is required</mat-error>
+        <mat-error *ngIf="authForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+      </mat-form-field>
+
+      <!-- Confirm Password (Signup only) -->
+      <mat-form-field appearance="outline" class="w-100 mb-3" *ngIf="isSignup">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword" />
+        <mat-icon matPrefix class="text-muted me-2">lock_reset</mat-icon>
+        <mat-error *ngIf="authForm.get('confirmPassword')?.hasError('required')">Please confirm your password</mat-error>
+        <mat-error *ngIf="authForm.get('confirmPassword')?.hasError('passwordMismatch')">Passwords do not match</mat-error>
+      </mat-form-field>
+
+      <!-- Submit Button -->
+      <button mat-flat-button color="primary" type="submit" class="w-100 submit-btn py-2" [disabled]="loading">
+        <mat-spinner diameter="20" *ngIf="loading" class="d-inline-block me-2"></mat-spinner>
+        <span>{{ isSignup ? 'Sign Up' : 'Log In' }}</span>
+      </button>
+
+      <!-- Toggle Mode -->
+      <div class="toggle-section text-center mt-3">
+        <button type="button" mat-button (click)="toggleMode()" class="toggle-btn">
+          {{ isSignup ? 'Already have an account? Log in' : "Don't have an account? Sign up" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

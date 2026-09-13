@@ -1,0 +1,45 @@
+<div class="city-list-wrapper glass-panel">
+  <div class="panel-header">
+    <h4>Existing Cities ({{ cityListInput?.length || 0 }})</h4>
+  </div>
+
+  <table mat-table [dataSource]="cityListInput" class="city-table w-100">
+    <!-- City Name -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>City Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <!-- State -->
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td mat-cell *matCellDef="let element">{{ element.state }}</td>
+    </ng-container>
+
+    <!-- City Code -->
+    <ng-container matColumnDef="cityCode">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let element">{{ element.cityCode }}</td>
+    </ng-container>
+
+    <!-- Edit Action -->
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef class="text-end pe-3">Action</th>
+      <td mat-cell *matCellDef="let element" class="text-end pe-3">
+        <button mat-stroked-button color="primary" (click)="handleEditCity(element)" class="edit-btn">
+          <mat-icon class="me-1">edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of City List Table"
+  ></mat-paginator>
+</div>

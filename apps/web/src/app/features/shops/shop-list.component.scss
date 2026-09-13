@@ -1,0 +1,209 @@
+.shop-list-page {
+  padding-bottom: 60px;
+
+  .mall-context-bar {
+    max-width: 1400px;
+    margin: 24px auto 16px;
+    padding: 20px 24px;
+
+    .context-inner {
+      display: flex;
+      align-items: center;
+
+      .mall-info {
+        display: flex;
+        align-items: center;
+
+        .back-btn {
+          color: #94a3b8;
+          &:hover {
+            color: #f8fafc;
+          }
+        }
+
+        h2 {
+          margin: 0;
+          font-size: 1.75rem;
+          font-weight: 700;
+          color: #f8fafc;
+        }
+
+        .sub-text {
+          font-size: 0.9rem;
+          color: #94a3b8;
+        }
+      }
+    }
+  }
+
+  .filter-wrapper {
+    max-width: 1400px;
+    margin: 0 auto 28px;
+    padding: 16px 24px;
+
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      .floor-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .floor-pill {
+          background: #1e293b;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #94a3b8;
+          padding: 6px 16px;
+          border-radius: 9999px;
+          font-size: 0.825rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            color: #f8fafc;
+            border-color: rgba(48, 221, 149, 0.5);
+          }
+
+          &.active {
+            background: #30dd95;
+            color: #0f172a;
+            border-color: #30dd95;
+          }
+        }
+      }
+
+      .category-filter {
+        .filter-btn {
+          border-color: rgba(255, 255, 255, 0.15);
+          color: #f8fafc;
+          border-radius: 8px;
+          padding: 4px 14px;
+        }
+      }
+    }
+  }
+
+  .content-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+
+    .shop-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        border-color: rgba(48, 221, 149, 0.4);
+      }
+
+      .shop-image-wrapper {
+        position: relative;
+        height: 180px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .category-chip {
+          position: absolute;
+          bottom: 12px;
+          left: 12px;
+          background: rgba(15, 23, 42, 0.85);
+          border: 1px solid rgba(48, 221, 149, 0.5);
+          color: #30dd95;
+          font-size: 0.75rem;
+          font-weight: 600;
+          padding: 3px 10px;
+          border-radius: 9999px;
+        }
+      }
+
+      .shop-content {
+        padding: 20px;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+
+        .title-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 8px;
+
+          .shop-title {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #f8fafc;
+          }
+
+          .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            background: rgba(234, 179, 8, 0.15);
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            color: #eab308;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+
+            .star-icon {
+              font-size: 16px;
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+
+        .shop-desc {
+          color: #94a3b8;
+          font-size: 0.9rem;
+          margin-bottom: 16px;
+          flex: 1 1 auto;
+        }
+
+        .shop-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          padding-top: 12px;
+
+          .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e1;
+            font-size: 0.85rem;
+
+            mat-icon {
+              font-size: 18px;
+              width: 18px;
+              height: 18px;
+              color: #64748b;
+            }
+          }
+        }
+      }
+    }
+  }
+}

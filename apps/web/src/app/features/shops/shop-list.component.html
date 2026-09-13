@@ -1,0 +1,105 @@
+<div class="shop-list-page">
+  <!-- Mall Title Header -->
+  <div class="mall-context-bar glass-panel">
+    <div class="context-inner">
+      <div class="mall-info">
+        <button mat-icon-button (click)="goBack()" title="Back to malls" class="back-btn me-2">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div>
+          <h2>{{ mallName }}</h2>
+          <span class="sub-text">Directory & Available Stores</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compound Filter Bar -->
+  <div class="filter-wrapper glass-panel">
+    <div class="filter-container">
+      <!-- Floor Pill Tabs -->
+      <div class="floor-tabs">
+        <button
+          *ngFor="let floor of floors"
+          class="floor-pill"
+          [class.active]="selectedFloor === floor"
+          (click)="setFloor(floor)"
+        >
+          {{ floor | uppercase }}
+        </button>
+      </div>
+
+      <!-- Category Filter Dropdown Trigger -->
+      <div class="category-filter">
+        <button mat-stroked-button [matMenuTriggerFor]="categoryMenu" class="filter-btn">
+          <mat-icon>tune</mat-icon>
+          <span>Category: <strong>{{ selectedCategory }}</strong></span>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #categoryMenu="matMenu" class="glass-menu">
+          <button
+            mat-menu-item
+            *ngFor="let cat of categories"
+            (click)="setCategory(cat)"
+            [class.active-item]="selectedCategory === cat"
+          >
+            <mat-icon *ngIf="selectedCategory === cat" class="active-check">check</mat-icon>
+            <span>{{ cat }}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stores Listing -->
+  <div class="container-fluid content-container">
+    <div *ngIf="(loading$ | async)" class="text-center py-5">
+      <mat-spinner diameter="48" class="mx-auto"></mat-spinner>
+      <p class="mt-3 text-muted">Loading stores...</p>
+    </div>
+
+    <div *ngIf="!(loading$ | async) && filteredShops.length === 0" class="empty-state glass-panel text-center py-5">
+      <mat-icon class="empty-icon">search_off</mat-icon>
+      <h3>No stores found</h3>
+      <p class="text-muted">No shops match the selected floor ({{ selectedFloor }}) and category ({{ selectedCategory }}).</p>
+      <button mat-flat-button color="primary" (click)="resetFilters()">Reset Filters</button>
+    </div>
+
+    <div class="shop-grid" *ngIf="!(loading$ | async) && filteredShops.length > 0">
+      <div *ngFor="let shop of filteredShops" class="shop-card glass-panel">
+        <div class="shop-image-wrapper">
+          <img [src]="shop.shopImg" [alt]="shop.name" (error)="onShopImageError($event)" />
+          <span class="category-chip">{{ shop.shopType }}</span>
+        </div>
+
+        <div class="shop-content">
+          <div class="title-row">
+            <h3 class="shop-title">{{ shop.name }}</h3>
+            <div class="rating-badge" *ngIf="shop.rating">
+              <mat-icon class="star-icon">star</mat-icon>
+              <span>{{ shop.rating }}</span>
+            </div>
+          </div>
+
+          <p class="shop-desc">{{ shop.description }}</p>
+
+          <div class="shop-meta">
+            <div class="meta-item" *ngIf="shop.floorNo">
+              <mat-icon>layers</mat-icon>
+              <span>{{ shop.floorNo }}</span>
+            </div>
+            <div class="meta-item" *ngIf="shop.address">
+              <mat-icon>place</mat-icon>
+              <span>{{ shop.address }}</span>
+            </div>
+            <div class="meta-item" *ngIf="shop.contactNumber">
+              <mat-icon>call</mat-icon>
+              <span>{{ shop.contactNumber }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
