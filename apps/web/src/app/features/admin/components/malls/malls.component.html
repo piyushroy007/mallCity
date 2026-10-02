@@ -1,102 +1,102 @@
-<div class="malls-admin-container glass-panel p-4">
-  <div class="mb-4">
-    <h3 class="m-0">Register New Mall</h3>
-    <p class="text-muted">Fill out mall specifications and upload a presentation image.</p>
+<div class="row g-4">
+  <!-- Left Column: Existing Malls List -->
+  <div class="col-lg-7">
+    <app-mall-admin-list
+      [mallListInput]="(malls$ | async) || []"
+    ></app-mall-admin-list>
   </div>
 
-  <form [formGroup]="mallForm" (ngSubmit)="onSubmit()" class="row g-4">
-    <!-- Image Upload & Preview -->
-    <div class="col-md-4">
-      <div class="image-upload-box text-center">
-        <label for="mallImgUpload" class="upload-label">
-          <mat-icon class="upload-icon">cloud_upload</mat-icon>
-          <span>Select Mall Image</span>
-        </label>
-        <input
-          type="file"
-          id="mallImgUpload"
-          accept="image/*"
-          (change)="onImageSelected($event)"
-          class="d-none"
-        />
-
-        <div class="preview-container mt-3" *ngIf="previewUrl">
-          <img [src]="previewUrl" alt="Mall Image Preview" class="img-preview" />
-        </div>
+  <!-- Right Column: Register New Mall Form -->
+  <div class="col-lg-5">
+    <div class="mall-form-card glass-panel p-4">
+      <div class="form-header mb-3">
+        <h3 class="m-0 d-flex align-items-center gap-2">
+          <mat-icon style="color: #30dd95;">add_business</mat-icon>
+          <span>Register New Mall</span>
+        </h3>
+        <p class="text-muted m-0 mt-1 small">Specify details and upload presentation photo (max 15MB).</p>
       </div>
-    </div>
 
-    <!-- Form Inputs -->
-    <div class="col-md-8">
-      <div class="row g-3">
-        <!-- State -->
-        <div class="col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>State</mat-label>
-            <mat-select formControlName="selectedState">
-              <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="mallForm.get('selectedState')?.hasError('required')">State is required</mat-error>
-          </mat-form-field>
+      <form [formGroup]="mallForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-3">
+        <!-- Image Upload Box -->
+        <div class="image-upload-box text-center p-3">
+          <label for="mallImgUpload" class="upload-label">
+            <mat-icon class="upload-icon">cloud_upload</mat-icon>
+            <span>Select Mall Image</span>
+          </label>
+          <input
+            type="file"
+            id="mallImgUpload"
+            accept="image/*"
+            (change)="onImageSelected($event)"
+            class="d-none"
+          />
+
+          <div class="preview-container mt-2" *ngIf="previewUrl">
+            <img [src]="previewUrl" alt="Mall Image Preview" class="img-preview" />
+          </div>
         </div>
 
-        <!-- City (Cascading from State) -->
-        <div class="col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>City</mat-label>
-            <mat-select formControlName="selectedCity">
-              <mat-option *ngFor="let city of filteredCities" [value]="city.name">
-                {{ city.name }} (Code: {{ city.cityCode }})
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="mallForm.get('selectedCity')?.hasError('required')">City is required</mat-error>
-          </mat-form-field>
+        <div class="row g-2">
+          <!-- State Selector -->
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>State</mat-label>
+              <mat-select formControlName="selectedState">
+                <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="mallForm.get('selectedState')?.hasError('required')">State required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- City Selector -->
+          <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>City</mat-label>
+              <mat-select formControlName="selectedCity">
+                <mat-option *ngFor="let city of filteredCities" [value]="city.name">
+                  {{ city.name }} ({{ city.cityCode }})
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="mallForm.get('selectedCity')?.hasError('required')">City required</mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
         <!-- Mall Name -->
-        <div class="col-md-8">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Mall Name</mat-label>
-            <input matInput formControlName="mallName" placeholder="e.g. Phoenix Marketcity" />
-            <mat-error *ngIf="mallForm.get('mallName')?.hasError('required')">Mall name is required</mat-error>
-          </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Mall Name</mat-label>
+          <input matInput formControlName="mallName" placeholder="e.g. Phoenix Marketcity" />
+          <mat-error *ngIf="mallForm.get('mallName')?.hasError('required')">Mall name is required</mat-error>
+        </mat-form-field>
 
-        <!-- Number of Floors -->
-        <div class="col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Total Floors</mat-label>
-            <input matInput type="number" formControlName="floorNumber" placeholder="e.g. 5" />
-            <mat-error *ngIf="mallForm.get('floorNumber')?.hasError('required')">Number of floors required</mat-error>
-          </mat-form-field>
-        </div>
+        <!-- Total Floors -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Total Floors</mat-label>
+          <input matInput type="number" formControlName="floorNumber" placeholder="e.g. 5" />
+          <mat-error *ngIf="mallForm.get('floorNumber')?.hasError('required')">Floor count required</mat-error>
+        </mat-form-field>
 
         <!-- Address -->
-        <div class="col-12">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Street Address</mat-label>
-            <input matInput formControlName="address" placeholder="e.g. Viman Nagar, Pune, Maharashtra 411014" />
-            <mat-error *ngIf="mallForm.get('address')?.hasError('required')">Address is required</mat-error>
-          </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Street Address</mat-label>
+          <input matInput formControlName="address" placeholder="e.g. Viman Nagar, Pune, Maharashtra" />
+          <mat-error *ngIf="mallForm.get('address')?.hasError('required')">Address is required</mat-error>
+        </mat-form-field>
 
         <!-- Description -->
-        <div class="col-12">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Description</mat-label>
-            <textarea matInput rows="3" formControlName="description" placeholder="Describe the shopping destination..."></textarea>
-            <mat-error *ngIf="mallForm.get('description')?.hasError('required')">Description is required</mat-error>
-          </mat-form-field>
-        </div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="2" formControlName="description" placeholder="Describe the shopping destination..."></textarea>
+          <mat-error *ngIf="mallForm.get('description')?.hasError('required')">Description required</mat-error>
+        </mat-form-field>
 
         <!-- Submit Button -->
-        <div class="col-12">
-          <button mat-flat-button color="primary" type="submit" class="py-2 px-4 submit-btn" [disabled]="mallForm.invalid">
-            <mat-icon class="me-1">add_business</mat-icon>
-            <span>Register Mall</span>
-          </button>
-        </div>
-      </div>
+        <button mat-flat-button color="primary" type="submit" class="w-100 py-2 submit-btn" [disabled]="mallForm.invalid">
+          <mat-icon class="me-1">add_business</mat-icon>
+          <span>Register Mall</span>
+        </button>
+      </form>
     </div>
-  </form>
+  </div>
 </div>

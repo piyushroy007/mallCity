@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import { selectCities, selectMalls } from '../../../../shared/store/app.selector';
-import { addShop, getCityList, getMallList } from '../../../../shared/store/app.action';
-import { CityDTO, MallDTO } from '@mallcity/shared';
+import { Observable, Subscription } from 'rxjs';
+import { selectCities, selectMalls, selectShops } from '../../../../shared/store/app.selector';
+import { addShop, getCityList, getMallList, getShopList } from '../../../../shared/store/app.action';
+import { CityDTO, MallDTO, ShopDTO } from '@mallcity/shared';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -21,6 +21,8 @@ export class StoresComponent implements OnInit, OnDestroy {
   allMalls: MallDTO[] = [];
   filteredMalls: MallDTO[] = [];
 
+  shops$: Observable<ShopDTO[]> = this.store.select(selectShops);
+
   categories = ['Clothes', 'Restaurant', 'Kids Zone', 'Saloon', 'Electronics'];
 
   shopForm!: FormGroup;
@@ -33,6 +35,7 @@ export class StoresComponent implements OnInit, OnDestroy {
     this.initForm();
     this.store.dispatch(getCityList());
     this.store.dispatch(getMallList({}));
+    this.store.dispatch(getShopList({}));
 
     this.subs.add(
       this.store.select(selectCities).subscribe((cities) => {

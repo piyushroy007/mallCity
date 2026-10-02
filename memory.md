@@ -73,6 +73,17 @@ This document serves as the persistent memory for the MallCity project. It recor
   * Created commit `e80d66d` ("feat: rebuild MallCity into Angular NgRx monorepo with strict TypeScript API, RBAC, and governance docs").
   * Pushed cleanly to remote repository `origin master` (`https://github.com/piyushroy007/mallCity.git`).
 
+### [Phase 6] Admin Panel Split-Pane Layout for Malls and Stores
+* **Date**: October 2, 2026
+* **Actor**: Antigravity Assistant & Piyush Roy
+* **Activity**:
+  * Upgraded the Admin Panel (`/admin`) tabs for both **Malls** and **Stores** into split-pane layouts identical to the **Cities** tab:
+    * Left side (7 cols): Existing items table with real-time text search filtering, paginator (`MatPaginator`), image thumbnail previews with fallbacks, and metadata badges.
+    * Right side (5 cols): Glassmorphism card housing the creation form with image upload (preview & 15MB size check) and input validation.
+  * Created reusable `MallAdminListComponent` (`app-mall-admin-list`) and `StoreAdminListComponent` (`app-store-admin-list`).
+  * Connected NgRx selectors `selectMalls` and `selectShops` with async pipe, dispatching `getMallList` and `getShopList` on component initialization.
+  * Verified full production build (`npm run build:web`) compiling cleanly with 0 errors.
+
 ---
 
 ## Incremental Feature Roadmap & Progress
@@ -84,7 +95,7 @@ This document serves as the persistent memory for the MallCity project. It recor
 - [x] `apps/api`: TypeScript backend with Mongoose, Auth/RBAC, and full CRUD
 - [x] `apps/web`: Angular frontend with NgRx store, Angular Material, and RBAC guards
 - [x] Public discovery pages: Home (City selection), Malls list, Shops list (Compound filter)
-- [x] Admin dashboard: City management (CRUD + validation), Mall management (Uploads), Shop management
+- [x] Admin dashboard: Split-pane City, Mall, and Store management (Existing List + Add Form)
 - [x] Role-based access control: Admin vs User permissions enforced across frontend & backend
 - [x] Verification and end-to-end build testing (`npm run build`)
 - [x] Quick Start commands synchronized in `README.md` and `doc.md`

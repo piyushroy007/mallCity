@@ -1,0 +1,154 @@
+.mall-list-wrapper {
+  overflow: hidden;
+  border-radius: 12px;
+
+  .panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f8fafc;
+
+      .header-icon {
+        color: #30dd95;
+      }
+    }
+
+    .search-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0 8px;
+      min-width: 240px;
+
+      .search-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: #94a3b8;
+        margin-right: 6px;
+      }
+
+      .admin-search-input {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #f8fafc;
+        font-size: 0.85rem;
+        padding: 6px 0;
+        width: 100%;
+
+        &::placeholder {
+          color: #64748b;
+        }
+      }
+
+      .clear-btn {
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        color: #94a3b8;
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .mall-table {
+    background: transparent;
+
+    th {
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+      padding: 12px 14px;
+    }
+
+    td {
+      color: #cbd5e1;
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+      padding: 12px 14px;
+      vertical-align: middle;
+    }
+
+    .table-row {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+    }
+
+    .mall-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .mall-info {
+      display: flex;
+      flex-direction: column;
+
+      .mall-title {
+        font-weight: 600;
+        color: #f1f5f9;
+        font-size: 0.95rem;
+      }
+
+      .mall-desc {
+        font-size: 0.78rem;
+        color: #94a3b8;
+      }
+    }
+
+    .city-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(79, 70, 229, 0.15);
+      border: 1px solid rgba(79, 70, 229, 0.35);
+      color: #a5b4fc;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .floor-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(48, 221, 149, 0.12);
+      border: 1px solid rgba(48, 221, 149, 0.3);
+      color: #30dd95;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .address-text {
+      max-width: 180px;
+      display: inline-block;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+  }
+
+  mat-paginator {
+    background: transparent;
+    color: #94a3b8;
+  }
+}

@@ -37,7 +37,9 @@ import { AdminHomeComponent } from './features/admin/components/admin-home/admin
 import { AddCityComponent } from './features/admin/components/add-city/add-city.component';
 import { CityListComponent } from './features/admin/components/city-list/city-list.component';
 import { MallsComponent } from './features/admin/components/malls/malls.component';
+import { MallAdminListComponent } from './features/admin/components/mall-list/mall-list.component';
 import { StoresComponent } from './features/admin/components/stores/stores.component';
+import { StoreAdminListComponent } from './features/admin/components/store-list/store-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
@@ -59,7 +61,9 @@ export function tokenGetter() {
     AddCityComponent,
     CityListComponent,
     MallsComponent,
+    MallAdminListComponent,
     StoresComponent,
+    StoreAdminListComponent,
   ],
   imports: [
     BrowserModule,

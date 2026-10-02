@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { STATES } from '../../constant/stateList.constant';
-import { selectCities } from '../../../../shared/store/app.selector';
-import { addMall, getCityList } from '../../../../shared/store/app.action';
-import { CityDTO } from '@mallcity/shared';
+import { selectCities, selectMalls } from '../../../../shared/store/app.selector';
+import { addMall, getCityList, getMallList } from '../../../../shared/store/app.action';
+import { CityDTO, MallDTO } from '@mallcity/shared';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -22,6 +22,8 @@ export class MallsComponent implements OnInit, OnDestroy {
   allCities: CityDTO[] = [];
   filteredCities: CityDTO[] = [];
 
+  malls$: Observable<MallDTO[]> = this.store.select(selectMalls);
+
   mallForm!: FormGroup;
   selectedFile: File | null = null;
   previewUrl: string | null = null;
@@ -31,6 +33,7 @@ export class MallsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
     this.store.dispatch(getCityList());
+    this.store.dispatch(getMallList({}));
 
     this.citySub = this.store.select(selectCities).subscribe((cities) => {
       this.allCities = cities || [];
